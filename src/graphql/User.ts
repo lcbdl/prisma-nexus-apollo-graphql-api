@@ -16,8 +16,6 @@ export const User = objectType({
   name: UserModel.$name,
   description: UserModel.$description,
   definition(t) {
-
-
     t.field(UserModel.id);
     t.field(UserModel.name);
     t.field(UserModel.email);
@@ -36,7 +34,7 @@ export const UserQuery = queryType({
       type: UserModel.$name,
       resolve(_, __, ctx: MyContext) {
         return ctx.prisma.user.findMany();
-      },
-    })
-  },
-})
+      }
+    });
+  }
+});
