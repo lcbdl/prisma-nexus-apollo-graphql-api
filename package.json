@@ -48,12 +48,12 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix",
-      "save"
+      "tslint --project tsconfig.json --fix",
+      "git add"
     ],
-    "*.{ts,js,jsx,css,json,md}": [
+    "*.{js,jsx,css,json,md}": [
       "prettier --write",
-      "save"
+      "git add"
     ]
   }
 }
