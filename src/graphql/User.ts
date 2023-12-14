@@ -18,8 +18,6 @@ export const User = objectType({
   definition(t) {
 
 
-
-    
     t.field(UserModel.id);
     t.field(UserModel.name);
     t.field(UserModel.email);
