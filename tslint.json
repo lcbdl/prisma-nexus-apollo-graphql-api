@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:latest",
+  "extends": ["tslint:latest",
+  "tslint-config-prettier",
+  "tslint-plugin-prettier"
+],
   "rules": {
     "arrow-parens": false,
     "class-name": false,
@@ -24,6 +27,13 @@
     "quotemark": ["single"],
     "triple-equals": true,
     "member-ordering": true,
-    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
+    "prettier": [
+      true,
+      {
+        "arrowParens": "always",
+        "trailingComma": "none"
+      }
+    ]
   }
 }
