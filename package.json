@@ -1,0 +1,45 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "Chuanbao Lu",
+  "license": "ISC",
+  "scripts": {
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server.ts",
+    "start": "node dist/server",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn generate && tsc",
+    "generate": "prisma generate"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.9.5",
+    "@prisma/client": "^5.7.0",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "1.22.4",
+    "nexus": "1.3.0",
+    "nexus-prisma": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.4",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.55.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "prisma": "^5.7.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "save"
+    ],
+    "*.{ts,js,jsx,css,json,md}": [
+      "prettier --write",
+      "save"
+    ]
+  }
+}
