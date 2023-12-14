@@ -1,8 +1,8 @@
 {
-  "name": "backend",
+  "name": "prisma-nexus-apollo-graphql-api",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "This is a boilerplate of Apollo Graphql backend API using prisma, nexus, nexus-prisma, typescript, and PostgreSQL.",
+  "keywords": ["graphql", "nexus", "prisma", "nexus-prisma", "typescript"],
   "author": "Chuanbao Lu",
   "license": "ISC",
   "scripts": {
@@ -26,12 +26,13 @@
     "dotenv": "^16.3.1",
     "eslint": "^8.55.0",
     "jest": "^29.7.0",
-    "nodemon": "^3.0.2",
     "prisma": "^5.7.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   },
+
+  
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
