@@ -13,7 +13,6 @@ const start = async () => {
 
   console.log(`\
   🚀 Server ready at: ${url}
-  ⭐️ See sample queries: http://pris.ly/e/ts/graphql-nexus#using-the-graphql-api
   `);
 };
 

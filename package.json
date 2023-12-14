@@ -10,7 +10,11 @@
     "start": "node dist/server",
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn generate && tsc",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
@@ -32,7 +36,7 @@
     "typescript": "^5.3.3"
   },
 
-  
+
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
