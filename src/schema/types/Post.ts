@@ -1,4 +1,4 @@
-import { objectType } from 'nexus';
+import { mutationType, objectType } from 'nexus';
 
 import { Post as PostModel } from 'nexus-prisma';
 

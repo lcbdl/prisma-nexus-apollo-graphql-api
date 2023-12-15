@@ -6,4 +6,4 @@ package-lock.json
 .DS_Store
 .vscode
 .env
-src/graphql/generated
+src/schema/generated

@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { schema } from './graphql/schema';
-import { MyContext, createContext } from './graphql/context';
+import schema from './schema';
+import { MyContext, createContext } from './context';
 
 const start = async () => {
   const server = new ApolloServer<MyContext>({ schema });
