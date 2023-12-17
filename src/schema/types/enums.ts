@@ -1,5 +1,4 @@
 import { enumType } from 'nexus';
-import { User as UserModel } from 'nexus-prisma';
 
 export const Sort = enumType({
   description: 'Sort enum for ascending or descending',

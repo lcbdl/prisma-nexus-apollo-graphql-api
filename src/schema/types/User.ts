@@ -55,14 +55,15 @@ export const UserQuery = queryField((t) => {
 export const UserMutation = mutationField((t) => {
   t.field('createUser', {
     type: UserModel.$name,
-    args: { data: CreateUserInput },
-    async resolve(_, { data }, ctx: MyContext) {
+    description: 'Create a new user',
+    args: { newUser: CreateUserInput },
+    async resolve(_, { newUser }, ctx: MyContext) {
       return await ctx.prisma.user.create({
         data: {
-          name: data.name,
-          email: data.email,
-          gender: data.gender,
-          authType: data.authType
+          name: newUser.name,
+          email: newUser.email,
+          gender: newUser.gender,
+          authType: newUser.authType
         }
       });
     }

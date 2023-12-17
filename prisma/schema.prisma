@@ -8,31 +8,30 @@ generator client {
 }
 
 generator nexusPrisma {
-   provider = "nexus-prisma"
+  provider = "nexus-prisma"
 }
 
 model Post {
-  id        String    @id @db.Uuid @default(uuid())
-  title     String?   @db.VarChar(255)
-  content   String?   @db.VarChar(255)
-  createdAt DateTime  @db.Timestamptz(6) @default(now())
-  updatedAt DateTime  @db.Timestamptz(6) @updatedAt
-  userId    String?   @db.Uuid
-  user      User?     @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid()) @db.Uuid
+  title     String?  @db.VarChar(255)
+  content   String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
 }
-
 
 /// User model represent a record in user table  
 model User {
-  id           String         @id @db.Uuid @default(uuid())
-  email        String        @unique @db.VarChar(255)
-  password     String?        @db.VarChar(255)
-  name         String        @db.VarChar(255)
-  gender       Gender?
-  authType     AuthType?
-  createdAt    DateTime       @db.Timestamptz(6) @default(now())
-  updatedAt    DateTime       @db.Timestamptz(6) @updatedAt
-  posts         Post[]
+  id        String    @id @default(uuid()) @db.Uuid
+  email     String    @unique @db.VarChar(255)
+  password  String?   @db.VarChar(255)
+  name      String    @db.VarChar(255)
+  gender    Gender?
+  authType  AuthType?
+  createdAt DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(6)
+  posts     Post[]
 }
 
 /// Authentication type enum
