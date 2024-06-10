@@ -1,0 +1,51 @@
+
+== GraphQL Server with Apollo and Prisma
+
+This is a boilerplate of Apollo Graphql backend API using prisma, nexus,
+nexus-prisma, typescript, and PostgreSQL based on
+
+* https://www.prisma.io/[Prisma],
+* https://www.apollographql.com/server/[apollo-server],
+* https://graphql-nexus.github.io/nexus-prisma[Nexus Prisma].
+
+=== How to use
+
+==== 1. Clone this repo & install dependencies
+
+Install Node dependencies:
+
+`+yarn+` (recommended) or `+npm install+`
+
+==== 2. Set up the database
+
+Create a .env file in the project folder, and set *_DATABASE_URL_* with your PostgreSQL URL
+
+Run this command to migrate Prisma schema to database, and seed your database.
+
+[source,sh]
+----
+yarn db:init
+----
+
+==== 3. Generate Prisma Client (type-safe database client)
+
+Run the following command to generate
+https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/generating-prisma-client[Prisma
+Client]:
+
+[source,sh]
+----
+yarn generate
+----
+
+==== 4. Start the GraphQL server
+
+Launch your GraphQL server with this command:
+
+[source,sh]
+----
+yarn dev
+----
+
+Navigate to http://localhost:4000 in your browser to explore the API of
+your GraphQL server..

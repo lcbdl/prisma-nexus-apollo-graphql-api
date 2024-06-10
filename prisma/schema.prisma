@@ -12,26 +12,38 @@ generator nexusPrisma {
 }
 
 model Post {
-  id        String   @id @default(uuid()) @db.Uuid
-  title     String?  @db.VarChar(255)
-  content   String?  @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @db.Timestamptz(6)
-  userId    String   @db.Uuid
-  user      User     @relation(fields: [userId], references: [id])
+  id        String    @id @default(uuid()) @db.Uuid
+  title     String?   @db.VarChar(255)
+  content   String?   @db.VarChar(255)
+  createdAt DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(6)
+  userId    String    @db.Uuid
+  user      User      @relation(fields: [userId], references: [id])
+  comments  Comment[]
+}
+
+model Comment {
+  id      String @id @default(uuid()) @db.Uuid
+  userId  String @db.Uuid
+  user    User   @relation(fields: [userId], references: [id])
+  postId  String @db.Uuid
+  post    Post   @relation(fields: [postId], references: [id])
+  comment String @db.VarChar(255)
 }
 
 /// User model represent a record in user table  
 model User {
   id        String    @id @default(uuid()) @db.Uuid
-  email     String    @unique @db.VarChar(255)
-  password  String?   @db.VarChar(255)
-  name      String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(50)
+  password  String?   @db.VarChar(50)
+  firstName String    @db.VarChar(50)
+  lastName  String    @db.VarChar(50)
   gender    Gender?
   authType  AuthType?
   createdAt DateTime  @default(now()) @db.Timestamptz(6)
   updatedAt DateTime  @updatedAt @db.Timestamptz(6)
   posts     Post[]
+  Comment   Comment[]
 }
 
 /// Authentication type enum

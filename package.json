@@ -16,8 +16,9 @@
     "start": "node dist/server",
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn generate && tsc",
-    "generate": "prisma generate",
-    "db:seed": "prisma db seed"
+    "db:init": "prisma migrate dev --name 'init'",
+    "db:seed": "prisma db seed",
+    "generate": "prisma generate"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

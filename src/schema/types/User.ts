@@ -7,7 +7,8 @@ export const User = objectType({
   description: UserModel.$description,
   definition(t) {
     t.field(UserModel.id);
-    t.field(UserModel.name);
+    t.field(UserModel.firstName);
+    t.field(UserModel.lastName);
     t.field(UserModel.email);
     t.field(UserModel.gender);
     t.field(UserModel.authType);
@@ -25,7 +26,8 @@ export const User = objectType({
 export const CreateUserInput = inputObjectType({
   name: 'CreateUserInput',
   definition(t) {
-    t.field(UserModel.name);
+    t.field(UserModel.firstName);
+    t.field(UserModel.lastName);
     t.field(UserModel.email);
     t.field(UserModel.gender);
     t.field(UserModel.authType);
@@ -60,7 +62,8 @@ export const UserMutation = mutationField((t) => {
     async resolve(_, { newUser }, ctx: MyContext) {
       return await ctx.prisma.user.create({
         data: {
-          name: newUser.name,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
           email: newUser.email,
           gender: newUser.gender,
           authType: newUser.authType
