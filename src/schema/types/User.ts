@@ -23,8 +23,8 @@ export const User = objectType({
   }
 });
 
-export const CreateUserInput = inputObjectType({
-  name: 'CreateUserInput',
+export const SaveUserInput = inputObjectType({
+  name: 'SaveUserInput',
   definition(t) {
     t.field(UserModel.firstName);
     t.field(UserModel.lastName);
@@ -35,7 +35,7 @@ export const CreateUserInput = inputObjectType({
 });
 
 export const UserQuery = queryField((t) => {
-  t.list.field('users', {
+  t.list.field('findUsers', {
     type: UserModel.$name,
     args: { offset: intArg({ default: 0 }), limit: intArg({ default: 25 }) },
     async resolve(_, { offset, limit }, ctx: MyContext) {
@@ -45,11 +45,18 @@ export const UserQuery = queryField((t) => {
       });
     }
   });
-  t.field('user', {
+  t.field('findUserById', {
     type: UserModel.$name,
     args: { userId: nonNull(stringArg()) },
     async resolve(_, { userId }, ctx: MyContext) {
       return await ctx.prisma.user.findUnique({ where: { id: userId } });
+    }
+  });
+  t.field('findUserByEmail', {
+    type: UserModel.$name,
+    args: { email: nonNull(stringArg()) },
+    async resolve(_, { email }, ctx: MyContext) {
+      return await ctx.prisma.user.findUnique({ where: { email: email } });
     }
   });
 });
@@ -58,8 +65,11 @@ export const UserMutation = mutationField((t) => {
   t.field('createUser', {
     type: UserModel.$name,
     description: 'Create a new user',
-    args: { newUser: CreateUserInput },
+    args: { newUser: SaveUserInput },
     async resolve(_, { newUser }, ctx: MyContext) {
+      const emailExpression = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+      const isValidEmail = emailExpression.test(String(newUser.email).toLowerCase());
+      if (!isValidEmail) throw new Error('email not in proper format');
       return await ctx.prisma.user.create({
         data: {
           firstName: newUser.firstName,
@@ -68,6 +78,33 @@ export const UserMutation = mutationField((t) => {
           gender: newUser.gender,
           authType: newUser.authType
         }
+      });
+    }
+  });
+  t.field('updateUser', {
+    type: UserModel.$name,
+    description: 'update user',
+    args: { userId: nonNull(stringArg()), newUser: SaveUserInput },
+    async resolve(_, { userId, newUser }, ctx: MyContext) {
+      return await ctx.prisma.user.update({
+        where: { id: userId },
+        data: {
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          email: newUser.email,
+          gender: newUser.gender,
+          authType: newUser.authType
+        }
+      });
+    }
+  });
+  t.field('deleteUser', {
+    type: UserModel.$name,
+    description: 'Delete user',
+    args: { userId: nonNull(stringArg()) },
+    async resolve(_, { userId }, ctx: MyContext) {
+      return await ctx.prisma.user.delete({
+        where: { id: userId }
       });
     }
   });

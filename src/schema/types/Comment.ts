@@ -13,8 +13,8 @@ export const Comment = objectType({
   }
 });
 
-export const CreateCommentInput = inputObjectType({
-  name: 'CreateCommentInputType',
+export const SaveCommentInput = inputObjectType({
+  name: 'SaveCommentInputType',
   definition(t) {
     t.field(CommentModel.comment);
     t.field(CommentModel.userId);
@@ -47,12 +47,35 @@ export const CommentMutation = mutationField((t) => {
   t.field('createComment', {
     type: CommentModel.$name,
     description: 'Create a comment',
-    args: { newComment: CreateCommentInput },
+    args: { newComment: SaveCommentInput },
     async resolve(_, { newComment }, ctx: MyContext) {
       return await ctx.prisma.comment.create({
         data: {
           ...newComment
         }
+      });
+    }
+  });
+  t.field('updateComment', {
+    type: CommentModel.$name,
+    description: 'Update comment',
+    args: { commentId: nonNull(stringArg()), newComment: SaveCommentInput },
+    async resolve(_, { commentId, newComment }, ctx: MyContext) {
+      return await ctx.prisma.comment.update({
+        where: { id: commentId },
+        data: {
+          ...newComment
+        }
+      });
+    }
+  });
+  t.field('deleteComment', {
+    type: CommentModel.$name,
+    description: 'delete comment',
+    args: { commentId: nonNull(stringArg()) },
+    async resolve(_, { commentId }, ctx: MyContext) {
+      return await ctx.prisma.comment.delete({
+        where: { id: commentId }
       });
     }
   });
